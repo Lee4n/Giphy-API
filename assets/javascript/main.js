@@ -9,7 +9,26 @@ $("button").on("click", function () {
     $.ajax({
         url: queryURL,
         method: "GET"
-    }).then(function(response) {
-        console.log(response);
+    }).then(function (response) {
+        console.log(response)
+        var results = response.data; //data is an array being stored in the variable results
+
+// looping through results
+
+        for (i = 0; i < results.length; i++) {
+            if (results[i] !== "r" && results[i] !== "pg-13") {
+                var gifBox = $("<div>");
+                var rating = results[i].rating;
+                var p = $("<p>").text("Rating: " + rating);
+                var doggoImage = $("<img>");
+
+                doggoImage.attr("src", results[i].images.fixed_height.url);
+
+                gifBox.append(p);
+                gifBox.append(doggoImage);
+
+                $("#gifDump").prepend(gifBox);
+            };
+        };
     });
 });
