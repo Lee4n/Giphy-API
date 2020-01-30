@@ -5,21 +5,26 @@ generateTopics();
 function generateTopics() {
     var buttonsArray = topics.map(t => "<button class='topicButton'>" + t + "</button>");
     $("#buttonsWrapper").append(buttonsArray)
+
+    // event listener for topic button
+    
+    $(".topicButton").on("click", function () {
+        console.log($(this))
+        var topic = $(this).text();
+        search(topic);
+    });
 };
 
-$(".topicButton").on("click", function () {
-    console.log($(this))
-    var topic = $(this).text();
-    search(topic);
-});
 
 // event listener for adding new topic button
 
-$("#add-gif").on("click", function (event) { // **************NOT COMPLETE****************
+$("#add-topic").on("click", function (event) {
+    console.log($(this))
     event.preventDefault();
     $("#buttonsWrapper").empty();
-    var newGif = $("#gif-input").val().trim();
-    topics.push(newGif);
+    var newTopic = $("#topic-input").val().trim();
+    topics.push(newTopic);
+    generateTopics();
 });
 
 function search(topic) {
