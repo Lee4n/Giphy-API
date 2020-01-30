@@ -2,10 +2,8 @@ var topics = ["husky", "pug", "chihuahua", "rottweiler"];
 
 generateTopics();
 
-// event listener for buttons
 function generateTopics() {
     var buttonsArray = topics.map(t => "<button class='topicButton'>" + t + "</button>");
-    console.log(buttonsArray)
     $("#buttonsWrapper").append(buttonsArray)
 };
 
@@ -13,6 +11,15 @@ $(".topicButton").on("click", function () {
     console.log($(this))
     var topic = $(this).text();
     search(topic);
+});
+
+// event listener for adding new topic button
+
+$("#add-gif").on("click", function (event) { // **************NOT COMPLETE****************
+    event.preventDefault();
+    $("#buttonsWrapper").empty();
+    var newGif = $("#gif-input").val().trim();
+    topics.push(newGif);
 });
 
 function search(topic) {
@@ -32,18 +39,18 @@ function search(topic) {
                 var gifBox = $("<div>");
                 var rating = results[i].rating;
                 var p = $("<p>").text("Rating: " + rating);
-                var doggoImage = $("<img class='gif'>");
+                var dogImage = $("<img class='gif'>");
 
-                doggoImage.attr("src", results[i].images.fixed_height_still.url);
+                dogImage.attr("src", results[i].images.fixed_height_still.url);
 
                 gifBox.append(p);
-                gifBox.append(doggoImage);
+                gifBox.append(dogImage);
 
                 $("#gifDump").prepend(gifBox);
             };
         };
 
-        // event listener for gifs
+        // event listener for gifs to pause or play
 
         $(".gif").on("click", function () {
 
